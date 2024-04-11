@@ -114,22 +114,22 @@
       <version>${webjars-font-awesome.version}</version>
     </dependency>
 
-<dependency>
+    <dependency>
 			<groupId>dev.langchain4j</groupId>
 			<artifactId>langchain4j</artifactId>
 			<version>0.27.1</version>
 		</dependency>
 		<dependency>
-            <groupId>dev.langchain4j</groupId>
-            <artifactId>langchain4j-azure-open-ai</artifactId>
-            <version>0.27.1</version>
-        </dependency>
+      <groupId>dev.langchain4j</groupId>
+      <artifactId>langchain4j-azure-open-ai</artifactId>
+      <version>0.27.1</version>
+    </dependency>
 		<dependency>
 			<groupId>dev.langchain4j</groupId>
 			<artifactId>langchain4j-mistral-ai</artifactId>
 			<version>0.27.1</version>
-		</dependency>
-		<dependency>
+    </dependency>
+    <dependency>
 			<groupId>dev.langchain4j</groupId>
 			<artifactId>langchain4j-azure-ai-search</artifactId>
 			<version>0.27.1</version>
