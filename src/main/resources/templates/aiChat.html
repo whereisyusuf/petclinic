@@ -10,7 +10,7 @@
         class="form-horizontal" id="ask-question-form">
     <div class="form-group">
       <div class="control-group" id="questionGroup">
-        <label class="col-sm-2 control-label">Question </label>
+        <label class="col-sm-2 control-label">Question</label>
         <div class="col-sm-10">
           <input class="form-control" th:field="*{question}" />
         </div>
@@ -18,13 +18,36 @@
     </div>
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" class="btn btn-primary">Send</button>
+        <button type="submit" class="btn btn-primary">Send to OpenAI</button>
       </div>
     </div>
   </form>
 
-  <br><br>
+  <br>
 
   <span th:text="${answer}" />
+
+  <br><br>
+
+  <form th:object="${searchQuestion}" th:action="@{/aiChat/search}" method="get"
+        class="form-horizontal" id="search-question-form">
+    <div class="form-group">
+      <div class="control-group" id="searchQuestionGroup">
+        <label class="col-sm-2 control-label">Question</label>
+        <div class="col-sm-10">
+          <input class="form-control" th:field="*{question}" />
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-primary">Send to AI Search</button>
+      </div>
+    </div>
+  </form>
+
+  <br>
+
+  <span th:text="${searchAnswer}" />
 </body>
 </html>

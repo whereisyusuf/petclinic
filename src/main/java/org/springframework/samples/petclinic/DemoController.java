@@ -35,6 +35,7 @@ public class DemoController {
 
     private ConversationalChain chain = null;
     private final Question question = new Question();
+    private final Question searchQuestion = new Question();
 
     public DemoController(ChatLanguageModel chatLanguageModel, EmbeddingModel embeddingModel, EmbeddingStore<TextSegment> embeddingStore, OwnerRepository ownerRepository) {
         this.chatLanguageModel = chatLanguageModel;
@@ -73,27 +74,41 @@ public class DemoController {
         return question;
     }
 
+    @ModelAttribute("searchQuestion")
+    public Question searchQuestionInModel() {
+        return searchQuestion;
+    }
+
     @GetMapping("/aiChat")
     String aiChat(Model model) {
         model.addAttribute("answer", question.getAnswer());
+        model.addAttribute("searchAnswer", searchQuestion.getAnswer());
+
+        System.out.println("question: " + question.getQuestion());
+        System.out.println("answer: " + question.getAnswer());
+        System.out.println("searchQuestion: " + searchQuestion.getQuestion());
+        System.out.println("searchAnswer: " + searchQuestion.getAnswer());
+
         return "aiChat";
     }
 
     @GetMapping("/aiChat/ask")
-    String aiChatAsk(Question question) {
+    String aiChatAsk(@ModelAttribute("question") Question question) {
+        question.setAnswer(chain.execute(question.getQuestion()));
+        return "redirect:/aiChat";
+    }
+
+    @GetMapping("/aiChat/search")
+    String aiChatSearch(@ModelAttribute("searchQuestion") Question searchQuestion) {
         StringBuilder answer = new StringBuilder();
 
-        answer.append("OpenAI answer ==> ").append(chain.execute(question.getQuestion()));
-        answer.append("<br><br>");
-
-        answer.append("AI Search answer ==> ");
-        Embedding relevantEmbedding = embeddingModel.embed(question.getQuestion()).content();
+        Embedding relevantEmbedding = embeddingModel.embed(searchQuestion.getQuestion()).content();
         List<EmbeddingMatch<TextSegment>> relevant = embeddingStore.findRelevant(relevantEmbedding, 10);
         for (EmbeddingMatch<TextSegment> textSegmentEmbeddingMatch : relevant) {
             answer.append(textSegmentEmbeddingMatch.embedded().text()).append(". ");
         }
 
-        question.setAnswer(answer.toString());
+        searchQuestion.setAnswer(answer.toString());
         return "redirect:/aiChat";
     }
 }
