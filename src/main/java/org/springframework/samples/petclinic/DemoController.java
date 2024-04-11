@@ -84,11 +84,6 @@ public class DemoController {
         model.addAttribute("answer", question.getAnswer());
         model.addAttribute("searchAnswer", searchQuestion.getAnswer());
 
-        System.out.println("question: " + question.getQuestion());
-        System.out.println("answer: " + question.getAnswer());
-        System.out.println("searchQuestion: " + searchQuestion.getQuestion());
-        System.out.println("searchAnswer: " + searchQuestion.getAnswer());
-
         return "aiChat";
     }
 
