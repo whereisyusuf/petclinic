@@ -1,6 +1,5 @@
 package org.springframework.samples.petclinic.configuration;
 
-
 import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.store.embedding.EmbeddingStore;
 import dev.langchain4j.store.embedding.azure.search.AzureAiSearchEmbeddingStore;

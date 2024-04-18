@@ -1,6 +1,5 @@
 package org.springframework.samples.petclinic;
 
-import dev.langchain4j.chain.ConversationalChain;
 import dev.langchain4j.data.embedding.Embedding;
 import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.memory.ChatMemory;
@@ -8,13 +7,9 @@ import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.embedding.EmbeddingModel;
 import dev.langchain4j.rag.content.retriever.EmbeddingStoreContentRetriever;
-import dev.langchain4j.store.embedding.EmbeddingMatch;
 import dev.langchain4j.store.embedding.EmbeddingStore;
-import dev.langchain4j.store.embedding.EmbeddingStoreIngestor;
-import jakarta.annotation.PostConstruct;
 import dev.langchain4j.service.AiServices;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.samples.petclinic.model.Question;
 import org.springframework.samples.petclinic.owner.Owner;
 import org.springframework.samples.petclinic.owner.OwnerRepository;
@@ -23,9 +18,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
+import jakarta.annotation.PostConstruct;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,6 +46,7 @@ public class DemoController {
         this.ownerRepository = ownerRepository;
  
     }
+
     @PostConstruct
     public void init() {
         embedOwners();
@@ -74,32 +70,24 @@ public class DemoController {
     }
 
     private void initChain() {
-  
-        
-                ChatMemory chatMemory = MessageWindowChatMemory.withMaxMessages(20);
+        ChatMemory chatMemory = MessageWindowChatMemory.withMaxMessages(20);
 
         EmbeddingStoreContentRetriever contentRetriever = EmbeddingStoreContentRetriever.builder()
-        .embeddingStore(embeddingStore)
-        .embeddingModel(embeddingModel)
-        .build();
+                .embeddingStore(embeddingStore)
+                .embeddingModel(embeddingModel)
+                .build();
 
         assistant = AiServices.builder(Agent.class)
                 .chatLanguageModel(chatLanguageModel)
                 .chatMemory(chatMemory)
                 .contentRetriever(contentRetriever)
                 .build();
-
-         
-     
-      
     }
 
     @ModelAttribute("question")
     public Question questionInModel() {
         return question;
     }
-
- 
 
     @GetMapping("/aiChat")
     String aiChat(Model model) {
@@ -113,5 +101,4 @@ public class DemoController {
         return "redirect:/aiChat";
     }
 
-    
 }
