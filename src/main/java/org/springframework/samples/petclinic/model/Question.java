@@ -20,15 +20,4 @@ public class Question {
         this.answer = answer;
     }
 
-    public String toString() {
-        return "Question: " + this.question + "\n" +
-               "Answer: " + this.answer;
-    }
-
-    public Question copy() {
-        Question question = new Question();
-        question.setQuestion(this.question);
-        question.setAnswer(this.answer);
-        return question;
-    }
 }
