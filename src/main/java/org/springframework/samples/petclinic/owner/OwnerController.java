@@ -52,7 +52,7 @@ class OwnerController {
 
 	private final OwnerRepository owners;
 
-	@Value("${petclinic.owner.pageSize:1}")
+	@Value("${petclinic.owner.pageSize:100}")
 	private int pageSize;
 
 	public OwnerController(OwnerRepository clinicService) {
