@@ -1,7 +1,0 @@
-petclinic:
-  owner:
-    pageSize:2
-
-spring:
-  config:
-    import: "optional:configserver:http://localhost:8080"
