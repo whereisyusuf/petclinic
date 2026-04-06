@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: yrpetclinic-deploy-config
+  namespace: namespace-workflow-1775472923356
+  labels:
+    app.kubernetes.io/name: yrpetclinic-deploy
+    kubernetes.azure.com/generator: devhub
+data:
