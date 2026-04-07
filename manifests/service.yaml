@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: yrpetclinic-deploy
+  namespace: namespace-workflow-1775472923356
+  labels:
+    app.kubernetes.io/name: yrpetclinic-deploy
+    kubernetes.azure.com/generator: devhub
+spec:
+  type: LoadBalancer
+  selector:
+    app.kubernetes.io/name: yrpetclinic-deploy
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080

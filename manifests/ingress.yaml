@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+  name: "yrapp-ingress"
+  namespace: "namespace-workflow-1775472923356"
+  labels:
+    app.kubernetes.io/name: yrapp-ingress
+    app.kubernetes.io/part-of: yrpetclinic-deploy-project
+    kubernetes.azure.com/generator: draft
+spec:
+  ingressClassName: webapprouting.kubernetes.azure.com
+  rules:
+    - host: "yrpetclinic.yrinc.in"
+      http:
+        paths:
+          - backend:
+              service:
+                name: "yrpetclinic-deploy"
+                port:
+                  number: 8080
+            path: "/"
+            pathType: Prefix
